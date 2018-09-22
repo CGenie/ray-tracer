@@ -1,0 +1,3 @@
+(library
+  (libraries gg vg vg.svg)
+  (public_name world_projectile))

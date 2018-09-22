@@ -1,0 +1,16 @@
+lib: [
+  "_build/install/default/lib/world_projectile/META" {"META"}
+  "_build/install/default/lib/world_projectile/opam" {"opam"}
+  "_build/install/default/lib/world_projectile/world_projectile.a" {"world_projectile.a"}
+  "_build/install/default/lib/world_projectile/world_projectile.cma" {"world_projectile.cma"}
+  "_build/install/default/lib/world_projectile/world_projectile.cmi" {"world_projectile.cmi"}
+  "_build/install/default/lib/world_projectile/world_projectile.cmt" {"world_projectile.cmt"}
+  "_build/install/default/lib/world_projectile/world_projectile.cmx" {"world_projectile.cmx"}
+  "_build/install/default/lib/world_projectile/world_projectile.cmxa" {"world_projectile.cmxa"}
+  "_build/install/default/lib/world_projectile/world_projectile.cmxs" {"world_projectile.cmxs"}
+  "_build/install/default/lib/world_projectile/world_projectile.dune" {"world_projectile.dune"}
+  "_build/install/default/lib/world_projectile/world_projectile.ml" {"world_projectile.ml"}
+]
+bin: [
+  "_build/install/default/bin/world_projectile" {"world_projectile"}
+]
