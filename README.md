@@ -1,5 +1,8 @@
 # The Ray Tracer Challenge (book) samples
 
+Solutions to the Pragmatic Bookshelf book
+[The Ray Tracer Challenge](https://pragprog.com/book/jbtracer/the-ray-tracer-challenge).
+
 ## 1. World Projectile
 
 This is based on chapters 1 and 2 of the book.
