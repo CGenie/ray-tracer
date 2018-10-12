@@ -8,7 +8,7 @@ Solutions to the Pragmatic Bookshelf book
 This is based on chapters 1 and 2 of the book.
 ```
 cd 01-world-projectile
-opam install gg svg vg
+opam install gg svg vg cairo2
 dune build
 ```
 

@@ -3,6 +3,3 @@ version: "1.0"
 maintainer: "cgenie@gmail.com"
 authors: ["CGenie"]
 license: "GPL"
-build: [
-  ["jbuilder" "build" "--only" "hello_world" "--root" "." "-j" jobs "@install"]
-]

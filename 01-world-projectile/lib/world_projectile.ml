@@ -57,12 +57,12 @@ let plot_points pts =
   let blend_mark acc pt = acc >> I.blend (mark pt) in
   List.fold_left blend_mark I.void pts
 
-let render_points pts =
+let render_points pts ?(output = "./output/world_projectile.svg") =
   let size = Size2.v 30.0 30.0 in
   (* let view = Box2.unit in *)
   let view = boundary_box pts in
   try
-    let oc = open_out "./output/world_projectile.svg" in
+    let oc = open_out output in
     let r = Vgr.create (Vgr_svg.target ()) (`Channel oc) in
     let img = plot_points (List.map p_2d_pos pts) in
     try
