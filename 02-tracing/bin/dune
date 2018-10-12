@@ -1,0 +1,7 @@
+(executables
+ (names main)
+ (libraries tracing))
+
+(install
+ (section bin)
+ (files (main.bc as tracing)))

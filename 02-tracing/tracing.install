@@ -1,0 +1,41 @@
+lib: [
+  "_build/install/default/lib/tracing/META" {"META"}
+  "_build/install/default/lib/tracing/drawing.ml" {"drawing.ml"}
+  "_build/install/default/lib/tracing/dumb.ml" {"dumb.ml"}
+  "_build/install/default/lib/tracing/formatters.ml" {"formatters.ml"}
+  "_build/install/default/lib/tracing/initials.ml" {"initials.ml"}
+  "_build/install/default/lib/tracing/opam" {"opam"}
+  "_build/install/default/lib/tracing/tracing.a" {"tracing.a"}
+  "_build/install/default/lib/tracing/tracing.cma" {"tracing.cma"}
+  "_build/install/default/lib/tracing/tracing.cmi" {"tracing.cmi"}
+  "_build/install/default/lib/tracing/tracing.cmt" {"tracing.cmt"}
+  "_build/install/default/lib/tracing/tracing.cmti" {"tracing.cmti"}
+  "_build/install/default/lib/tracing/tracing.cmx" {"tracing.cmx"}
+  "_build/install/default/lib/tracing/tracing.cmxa" {"tracing.cmxa"}
+  "_build/install/default/lib/tracing/tracing.cmxs" {"tracing.cmxs"}
+  "_build/install/default/lib/tracing/tracing.dune" {"tracing.dune"}
+  "_build/install/default/lib/tracing/tracing.ml" {"tracing.ml"}
+  "_build/install/default/lib/tracing/tracing.mli" {"tracing.mli"}
+  "_build/install/default/lib/tracing/tracing__.cmi" {"tracing__.cmi"}
+  "_build/install/default/lib/tracing/tracing__.cmt" {"tracing__.cmt"}
+  "_build/install/default/lib/tracing/tracing__.cmx" {"tracing__.cmx"}
+  "_build/install/default/lib/tracing/tracing__.ml-gen" {"tracing__.ml-gen"}
+  "_build/install/default/lib/tracing/tracing__Drawing.cmi" {"tracing__Drawing.cmi"}
+  "_build/install/default/lib/tracing/tracing__Drawing.cmt" {"tracing__Drawing.cmt"}
+  "_build/install/default/lib/tracing/tracing__Drawing.cmx" {"tracing__Drawing.cmx"}
+  "_build/install/default/lib/tracing/tracing__Dumb.cmi" {"tracing__Dumb.cmi"}
+  "_build/install/default/lib/tracing/tracing__Dumb.cmt" {"tracing__Dumb.cmt"}
+  "_build/install/default/lib/tracing/tracing__Dumb.cmx" {"tracing__Dumb.cmx"}
+  "_build/install/default/lib/tracing/tracing__Formatters.cmi" {"tracing__Formatters.cmi"}
+  "_build/install/default/lib/tracing/tracing__Formatters.cmt" {"tracing__Formatters.cmt"}
+  "_build/install/default/lib/tracing/tracing__Formatters.cmx" {"tracing__Formatters.cmx"}
+  "_build/install/default/lib/tracing/tracing__Initials.cmi" {"tracing__Initials.cmi"}
+  "_build/install/default/lib/tracing/tracing__Initials.cmt" {"tracing__Initials.cmt"}
+  "_build/install/default/lib/tracing/tracing__Initials.cmx" {"tracing__Initials.cmx"}
+  "_build/install/default/lib/tracing/tracing__Tracing_types.cmi" {"tracing__Tracing_types.cmi"}
+  "_build/install/default/lib/tracing/tracing__Tracing_types.cmti" {"tracing__Tracing_types.cmti"}
+  "_build/install/default/lib/tracing/tracing_types.mli" {"tracing_types.mli"}
+]
+bin: [
+  "_build/install/default/bin/tracing" {"tracing"}
+]

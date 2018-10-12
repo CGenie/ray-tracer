@@ -1,0 +1,5 @@
+opam-version: "1.2"
+version: "1.0"
+maintainer: "cgenie@gmail.com"
+authors: ["CGenie"]
+license: "GPL"

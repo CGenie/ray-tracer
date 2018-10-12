@@ -1,0 +1,4 @@
+(library
+  (libraries gg vg vg.cairo vg.svg)
+  (modules_without_implementation tracing_types)
+  (public_name tracing))

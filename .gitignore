@@ -18,4 +18,5 @@ setup.log
 
 .merlin
 
-ray-tracer/src/output/
+01-world-projectile/output/
+02-tracing/output/
