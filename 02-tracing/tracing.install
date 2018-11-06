@@ -19,7 +19,7 @@ lib: [
   "_build/install/default/lib/tracing/tracing__.cmi" {"tracing__.cmi"}
   "_build/install/default/lib/tracing/tracing__.cmt" {"tracing__.cmt"}
   "_build/install/default/lib/tracing/tracing__.cmx" {"tracing__.cmx"}
-  "_build/install/default/lib/tracing/tracing__.ml-gen" {"tracing__.ml-gen"}
+  "_build/install/default/lib/tracing/tracing__.ml" {"tracing__.ml"}
   "_build/install/default/lib/tracing/tracing__Drawing.cmi" {"tracing__Drawing.cmi"}
   "_build/install/default/lib/tracing/tracing__Drawing.cmt" {"tracing__Drawing.cmt"}
   "_build/install/default/lib/tracing/tracing__Drawing.cmx" {"tracing__Drawing.cmx"}

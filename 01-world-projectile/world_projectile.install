@@ -14,6 +14,3 @@ lib: [
 bin: [
   "_build/install/default/bin/world_projectile" {"world_projectile"}
 ]
-doc: [
-  "_build/install/default/doc/world_projectile/README.md"
-]

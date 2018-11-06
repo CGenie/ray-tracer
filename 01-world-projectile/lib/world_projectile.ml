@@ -48,16 +48,16 @@ let boundary_box pts =
 
 (* drawing *)
 let dot =
-  let circle = P.empty >> P.circle P2.o 0.05 in
-  I.const Color.black >> I.cut circle
+  let circle = P.empty |> P.circle P2.o 0.05 in
+  I.const Color.black |> I.cut circle
 
 let gray = I.const (Color.gray 0.5)
-let mark pt = dot >> I.move pt
+let mark pt = dot |> I.move pt
 let plot_points pts =
-  let blend_mark acc pt = acc >> I.blend (mark pt) in
+  let blend_mark acc pt = acc |> I.blend (mark pt) in
   List.fold_left blend_mark I.void pts
 
-let render_points pts ?(output = "./output/world_projectile.svg") =
+let render_points ?(output = "./output/world_projectile.svg") pts =
   let size = Size2.v 30.0 30.0 in
   (* let view = Box2.unit in *)
   let view = boundary_box pts in
