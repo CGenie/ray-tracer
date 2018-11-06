@@ -15,8 +15,8 @@ let initial_eye: eye = {
   origin=P3.v 0.0 0.0 (-2.0)
 }
 let initial_image_plane: image_plane = {
-  ll=P3.v (-2.) (-2.) (-1.);
-  ur=P3.v 2. 2. (-1.)
+  ll=P3.v (-1.) (-1.) (-1.);
+  ur=P3.v 1. 1. (-1.)
 }
 let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
