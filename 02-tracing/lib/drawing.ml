@@ -1,7 +1,7 @@
 open Gg
 open Vg
 
-open Formatters
+(* open Formatters *)
 open Tracing_types
 
 let boundary_box (pts: color_point list) =
@@ -19,7 +19,7 @@ let plot_points (pts: color_point list) =
 let render_points ?(output = "./output/simple-scene.png") (pts: color_point list) =
   let size = Size2.v 100.0 100.0
   and view = boundary_box pts in
-  Printf.printf "%s\n" (format_box view);
+  (* Printf.printf "%s\n" (format_box view); *)
   try
     let oc = open_out output
     and res = 300. /. 0.0254 in  (* 300dpi in dots per meters *)

@@ -2,7 +2,7 @@
 (* open Gg *)
 open Gg.V3
 
-open Formatters
+(* open Formatters *)
 open Tracing_types
 open Initials
 
@@ -59,12 +59,13 @@ let intersect ({origin=ro; direction=rd}:ray) wo =
 (** "Shoot" a ray into the world and fetch its colour.
     We need to take the "first" intersection, i.e. the one closest to the ray origin. **)
 let colorize_point (w: world) (r: ray) =
-  let intersections = List.concat @@ List.map (intersect r) w.objects
+  let intersections_mapped = List.rev_map (intersect r) w.objects
   and comparator (a: intersection) (b: intersection) =
     let d = (norm2 @@ sub r.origin a.point) -. (norm2 @@ sub r.origin b.point) in
     if d < 0. then (-1)
     else if d > 0. then 1
     else 0 in
+  let intersections =  List.fold_left List.append [] intersections_mapped in
   let intersections_sorted = List.sort comparator intersections in
   let c =
     match intersections_sorted with
@@ -74,9 +75,9 @@ let colorize_point (w: world) (r: ray) =
 
 let colorize (ip: image_plane) (w: world) (e: eye) =
   let rays = get_rays e.origin ip x_initial_rays y_initial_rays in
-  Printf.printf "num rays: %d\n" (List.length rays);
-  List.iter (fun r -> Printf.printf "%s\n" (format_ray r)) rays;
-  List.map (colorize_point w) rays
+  (* Printf.printf "num rays: %d\n" (List.length rays); *)
+  (* List.iter (fun r -> Printf.printf "%s\n" (format_ray r)) rays; *)
+  List.rev_map (colorize_point w) rays
 
 (* Draw sphere, paint it in a simple way *)
 (* This is "Putting it together" task at end of Chapter 5 *)

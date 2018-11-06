@@ -15,8 +15,8 @@ let initial_eye: eye = {
   origin=P3.v 0.0 0.0 (-2.0)
 }
 let initial_image_plane: image_plane = {
-  ll=P3.v (-5.) (-5.) (-1.);
-  ur=P3.v 5. 5. (-1.)
+  ll=P3.v (-2.) (-2.) (-1.);
+  ur=P3.v 2. 2. (-1.)
 }
 let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
@@ -32,8 +32,8 @@ let initial_world: world = {
   light=P3.v 1.0 1.0 0.0;
   background_color=Color.black
 }
-let x_initial_rays: int = 4
-let y_initial_rays: int = 4
+let x_initial_rays: int = 500
+let y_initial_rays: int = 500
 
 (** [get_rays] returns rays emanating from [o] and intersecting the [ip:image_plane].
     The origin of each ray is the point where it intersects the plane. **)
