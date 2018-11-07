@@ -15,6 +15,10 @@ type shape = Ball of {
   origin: p3;
   radius: float
 }
+type lighting = PointLight of {
+  position: p3;
+  intensity: color
+}
 type w_object = {
   shape: shape;
   color: color;
@@ -29,11 +33,13 @@ type image_plane = {
 }
 type world = {
   objects: w_object list;
-  light: p3;  (* TODO list of points *)
+  light: lighting;  (* TODO list of points *)
   background_color: color
 }
 type intersection = {
+  normal: v3;
   point: p3;
+  ray: ray;
   w_object: w_object
 }
 type color_point = {

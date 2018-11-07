@@ -1,4 +1,6 @@
 (library
   (libraries gg vg vg.cairo vg.svg)
   (modules_without_implementation tracing_types)
+  (inline_tests)
+  (preprocess (pps ppx_inline_test))
   (public_name tracing))

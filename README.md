@@ -25,3 +25,10 @@ and generate it using `dune`:
 ```
 dune build @doc
 ```
+
+## Testing
+
+```
+opam install ppx_inline_test
+dune runtest
+```

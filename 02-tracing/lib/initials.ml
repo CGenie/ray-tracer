@@ -20,20 +20,21 @@ let initial_image_plane: image_plane = {
 }
 let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
-  radius=1.0
+  radius=1.8
 }
 let initial_w_ball: w_object = {
   shape=initial_ball;
   phong=default_phong;
-  color=Color.red
+  (* color=Color.red *)
+  color=Color.v 1.0 0.2 1.0 1.0
 }
 let initial_world: world = {
   objects=[initial_w_ball];
-  light=P3.v 1.0 1.0 0.0;
+  light=PointLight {position=P3.v (-10.0) 10.0 (-10.0); intensity=Color.white};
   background_color=Color.black
 }
-let x_initial_rays: int = 500
-let y_initial_rays: int = 500
+let x_initial_rays: int = 300
+let y_initial_rays: int = 300
 
 (** [get_rays] returns rays emanating from [o] and intersecting the [ip:image_plane].
     The origin of each ray is the point where it intersects the plane. **)
