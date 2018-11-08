@@ -15,22 +15,29 @@ let initial_eye: eye = {
   origin=P3.v 0.0 0.0 (-2.0)
 }
 let initial_image_plane: image_plane = {
-  ll=P3.v (-1.) (-1.) (-1.);
-  ur=P3.v 1. 1. (-1.)
+  ll=P3.v (-2.) (-2.) (-1.);
+  ur=P3.v 2. 2. (-1.)
 }
 let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
   radius=1.8
 }
 let ball_tr = Gg.M4.scale3 @@ V3.v 2.0 1.0 1.0
-let initial_w_ball: w_object = {
+let initial_w_affine_ball: w_object = {
   shape=Affine{m=ball_tr; inv_m=Gg.M4.inv ball_tr; shape=initial_ball};
   phong=default_phong;
   (* color=Color.red *)
   color=Color.v 1.0 0.2 1.0 1.0
 }
+let ball_tr2 = Gg.M4.move3 @@ V3.v 0.0 1.5 0.0
+let initial_w_ball: w_object = {
+  shape=Affine{m=ball_tr2; inv_m=Gg.M4.inv ball_tr2; shape=initial_ball};
+  phong=default_phong;
+  (* color=Color.red *)
+  color=Color.v 1.0 0.2 0.5 1.0
+}
 let initial_world: world = {
-  objects=[initial_w_ball];
+  objects=[initial_w_affine_ball; initial_w_ball];
   light=PointLight {position=P3.v (-10.0) 10.0 (-10.0); intensity=Color.white};
   background_color=Color.black
 }
