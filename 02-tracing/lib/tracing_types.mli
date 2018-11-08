@@ -14,7 +14,14 @@ type ray = {
 type shape = Ball of {
   origin: p3;
   radius: float
-}
+} | Affine of {
+  m: m4;
+  inv_m: m4;  (* For performance reasons, so that I don't have to invert it all the time *)
+  shape: shape
+}  (** Affine transformation:
+       http://www.unknownroad.com/rtfm/graphics/rt_normals.html
+       http://erratique.ch/software/gg/doc/Gg.V3.html#VALtr
+       http://erratique.ch/software/gg/doc/Gg.P3.html#VALtr **)
 type lighting = PointLight of {
   position: p3;
   intensity: color

@@ -1,5 +1,7 @@
 (executables
  (names main)
+ (modes (byte exe)
+        (best exe))
  (libraries tracing))
 
 (install

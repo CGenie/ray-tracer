@@ -22,8 +22,9 @@ let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
   radius=1.8
 }
+let ball_tr = Gg.M4.scale3 @@ V3.v 2.0 1.0 1.0
 let initial_w_ball: w_object = {
-  shape=initial_ball;
+  shape=Affine{m=ball_tr; inv_m=Gg.M4.inv ball_tr; shape=initial_ball};
   phong=default_phong;
   (* color=Color.red *)
   color=Color.v 1.0 0.2 1.0 1.0

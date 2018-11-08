@@ -40,7 +40,7 @@ let q_zeros a b c =
   t = (sqrt{Delta} - 2 (ro - bo, rd))/2|rd|^2
 *)
 
-let intersect ({origin=ro; direction=rd} as r:ray) wo =
+let rec intersect ({origin=ro; direction=rd} as r:ray) wo =
   (* TODO: ray direction should be normalized, add an assertion *)
   let rd2 = norm2 rd in
 
@@ -55,6 +55,10 @@ let intersect ({origin=ro; direction=rd} as r:ray) wo =
       [] -> []
     | z::_ -> [{normal=unit (ro_bo); point=(ro + z*rd); ray=r; w_object=wo}]
     )
+  | Affine{m=_; inv_m=inv_m; shape=s} ->
+    let inv_ray = {origin=Gg.P3.tr inv_m ro; direction=Gg.V3.tr inv_m rd} in
+    let intersections = intersect inv_ray {wo with shape=s} in
+    List.map (fun i -> {i with w_object=wo}) intersections
 
 (** Phong model coloring function **)
 let phong_color (material_color: Gg.color) (material_phong: phong_t) (light_: lighting) (point: Gg.p3) (eyev: Gg.v3) (normalv: Gg.v3) =
