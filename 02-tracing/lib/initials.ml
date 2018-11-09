@@ -36,9 +36,11 @@ let initial_w_ball: w_object = {
   (* color=Color.red *)
   color=Color.v 1.0 0.2 0.5 1.0
 }
+let first_light: lighting = PointLight {position=P3.v (-10.0) 10.0 (-10.0); intensity=Color.white}
+let second_light: lighting = PointLight {position=P3.v (-10.0) 0.0 (-10.0); intensity=Color.white}
 let initial_world: world = {
   objects=[initial_w_affine_ball; initial_w_ball];
-  light=PointLight {position=P3.v (-10.0) 10.0 (-10.0); intensity=Color.white};
+  lights=[first_light; second_light];
   background_color=Color.black
 }
 let x_initial_rays: int = 300

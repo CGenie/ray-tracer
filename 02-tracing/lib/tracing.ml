@@ -156,8 +156,14 @@ let colorize_point (w: world) (r: ray) =
   let c =
     match intersections_sorted with
       [] -> w.background_color
-    | (i::_) -> phong_color i.w_object.color i.w_object.phong w.light i.point (unit @@ neg i.ray.direction) i.normal in (* i.w_object.color -- for chapter 5 solution with only a red ball, no Phong *)
-  {point=r.origin; color=c}
+    | (i::_) ->
+      let vv = (unit @@ neg i.ray.direction) in
+      (* i.w_object.color -- for chapter 5 solution with only a red ball, no Phong *)
+      List.fold_left (fun acc l -> Gg.V4.add acc (phong_color i.w_object.color i.w_object.phong l i.point vv i.normal))
+                     Gg.Color.black
+                     w.lights
+  in
+  {point=r.origin; color=Gg.Color.with_a c 1.0}
 
 let colorize (ip: image_plane) (w: world) (e: eye) =
   let rays = get_rays e.origin ip x_initial_rays y_initial_rays in

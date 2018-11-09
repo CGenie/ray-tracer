@@ -40,7 +40,7 @@ type image_plane = {
 }
 type world = {
   objects: w_object list;
-  light: lighting;  (* TODO list of points *)
+  lights: lighting list;
   background_color: color
 }
 type intersection = {
