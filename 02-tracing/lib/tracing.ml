@@ -163,7 +163,9 @@ let colorize (ip: image_plane) (w: world) (e: eye) =
   let rays = get_rays e.origin ip x_initial_rays y_initial_rays in
   (* Printf.printf "num rays: %d\n" (List.length rays); *)
   (* List.iter (fun r -> Printf.printf "%s\n" (format_ray r)) rays; *)
-  List.rev_map (colorize_point w) rays
+  (* List.rev_map (colorize_point w) rays *)
+  Seq.map (colorize_point w) rays
+
 
 (* Draw sphere, paint it in a simple way *)
 (* This is "Putting it together" task at end of Chapter 5 *)
@@ -172,8 +174,8 @@ let simple_scene () =
   and ip = initial_image_plane
   and e = initial_eye in
   let pts = colorize ip w e in
-  Drawing.render_points pts ~output:"./output/simple-scene.png";
-  Printf.printf "num pts: %d\n" (List.length pts)
+  Printf.printf "Colorize done\n";
+  Drawing.render_points pts ~output:"./output/simple-scene.png"
 
 (* external float_compare_noalloc : float -> float -> int = *)
 (*   "float_compare_noalloc_stub" "mystubs" *)

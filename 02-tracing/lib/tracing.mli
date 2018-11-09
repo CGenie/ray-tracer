@@ -28,6 +28,6 @@ val intersect: ray -> w_object -> intersection list
 
 val colorize_point: world -> ray -> color_point
 
-val colorize: image_plane -> world -> eye -> color_point list
+val colorize: image_plane -> world -> eye -> color_point Seq.t
 
 val run: unit -> unit

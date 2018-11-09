@@ -62,4 +62,4 @@ let get_rays (o:p3) (ip:image_plane) (nx:int) (ny:int) =
     let dd = P3.v (x_min +. x_f*.x_size) (y_min +. y_f*.y_size) ip_z in
     {origin=dd; direction=V3.unit (V3.sub dd o)}
   ) in
-  rays
+  List.to_seq rays
