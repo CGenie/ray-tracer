@@ -17,17 +17,6 @@ x = - b/2a + sqrt{(b^2 - 4ac)}/2a
 x = (+/- sqrt{Delta} - b)/2a
 *)
 
-(** Zeros of a quadratic function a x^2 + b x + c. **)
-let q_zeros a b c =
-  match a with
-    0.0  -> [(-1.)*.c/.b]
-  | _    ->
-    let delta = b*.b -. 4.*.a*.c in
-    if delta < 0. then []
-    else
-      let sdelta = 0.5*.(sqrt delta)/.a
-      and b2a = (-0.5)*.b/.a in
-      [b2a -. sdelta; b2a +. sdelta]
 (*
   Intersection with ball:
   ray is: ro + t*rd  (t >= 0)

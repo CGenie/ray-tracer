@@ -1,8 +1,5 @@
 open Gg
 
-(** Middle point between 2 points *)
-let mid_pt (a: p3) (b: p3) = V3.smul 0.5 (V3.add a b)
-
 (** Reflect a vector around a normal **)
 let reflect (v: v3) (n: v3) =
   let n_u = V3.unit n in
@@ -11,3 +8,15 @@ let reflect (v: v3) (n: v3) =
 
 let%test _ = (reflect (V3.v 1.0 (-1.0) 0.0) (V3.v 0.0 1.0 0.0)) = (V3.v 1.0 1.0 0.0)
 let%test _ = V3.norm @@ V3.sub (reflect (V3.v 0.0 (-1.0) 0.0) (V3.v (0.5 *. (sqrt 2.0)) (0.5 *. (sqrt 2.0)) 0.0)) (V3.v 1.0 0.0 0.0) < 0.00001
+
+(** Zeros of a quadratic function a x^2 + b x + c. **)
+let q_zeros a b c =
+  match a with
+    0.0  -> [(-1.)*.c/.b]
+  | _    ->
+    let delta = b*.b -. 4.*.a*.c in
+    if delta < 0. then []
+    else
+      let sdelta = 0.5*.(sqrt delta)/.a
+      and b2a = (-0.5)*.b/.a in
+      [b2a -. sdelta; b2a +. sdelta]
