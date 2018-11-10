@@ -1,5 +1,5 @@
+(* tracing.ml *)
 
-(* open Gg *)
 open Gg.V3
 
 open Formatters
@@ -66,7 +66,6 @@ let%test_module _ = (module struct
     err < 0.001
 end)
 
-(** Phong model coloring function **)
 let phong_color (material_color: Gg.color) (material_phong: phong_t) (light_: lighting) (point: Gg.p3) (eyev: Gg.v3) (normalv: Gg.v3) =
   match light_ with
     PointLight light -> Gg.Color.with_a (
@@ -146,8 +145,6 @@ let%test_module _ = (module struct
     err < 0.00001
 end)
 
-(** "Shoot" a ray into the world and fetch its colour.
-    We need to take the "first" intersection, i.e. the one closest to the ray origin. **)
 let colorize_point (w: world) (r: ray) =
   let intersections_mapped = List.rev_map (intersect r) w.objects
   and comparator (a: intersection) (b: intersection) =
@@ -177,8 +174,6 @@ let colorize (ip: image_plane) (w: world) (e: eye) =
   Seq.map (colorize_point w) rays
 
 
-(* Draw sphere, paint it in a simple way *)
-(* This is "Putting it together" task at end of Chapter 5 *)
 let simple_scene () =
   let w = initial_world in
   let c = initial_camera in

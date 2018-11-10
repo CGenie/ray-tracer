@@ -1,6 +1,6 @@
+(* initials.ml *)
 
 open Gg
-(* open Gg.V3 *)
 
 open Tracing_types
 
@@ -13,7 +13,7 @@ let default_phong: phong_t = {
 }
 let initial_camera: camera = {
   eye=P3.v 0.0 0.0 (-3.0);
-  direction=Gg.V3.unit @@ V3.v 0.3 0.0 1.0;
+  direction=Gg.V3.unit @@ V3.v 0.0 0.0 1.0;
   distance=1.0;
   width=4.0;
   height=4.0
@@ -44,22 +44,22 @@ let initial_world: world = {
 let x_initial_rays: int = 300
 let y_initial_rays: int = 300
 
-(** [get_rays] returns rays emanating from [o] and intersecting the [ip:image_plane].
-    The origin of each ray is the point where it intersects the plane. **)
 let get_rays (o:p3) (ip:image_plane) (nx:int) (ny:int) =
-  (* TODO: handle tilted plane, i.e. one that doesn't have z = const *)
   let nxp = nx + 1
   and nyp = ny + 1 in
-  let n: int = nxp * nyp
-  and x_min = V3.x ip.ll
-  and y_min = V3.y ip.ll
-  and ip_z = P3.z ip.ll in  (* TODO: ip.ll.z = ip.ur.z assumption *)
-  let x_size = (V3.x ip.ur) -. x_min
-  and y_size = (V3.y ip.ur) -. y_min in
-  let rays: ray list = List.init n (fun idx ->
-    let x_f = (float_of_int @@ idx mod nxp) /. (float_of_int nxp)
-    and y_f = (float_of_int @@ idx / nxp) /. (float_of_int nyp) in
-    let dd = P3.v (x_min +. x_f*.x_size) (y_min +. y_f*.y_size) ip_z in
-    {origin=dd; direction=V3.unit (V3.sub dd o)}
+  let dx = 1.0 /. (float_of_int nxp)
+  and dy = 1.0 /. (float_of_int nyp) in
+  (* assumption is that the image_plane is "straight", i.e. not tilted around the z-axis *)
+  let ul = P3.v (V3.x ip.ll) (V3.y ip.ur) (V3.z ip.ur) in
+  let vr = V3.sub ip.ur ul     (* "right" vector *)
+  and vu = V3.sub ul ip.ll in  (* "upper" vector *)
+  let vrs = V3.smul dx vr     (* step vector to the "right" *)
+  and vus = V3.smul dy vu in  (* step vector "up" *)
+  let rays: ray list = List.flatten @@ List.init nyp (fun yidx ->
+    let vy = V3.add ip.ll (V3.smul (float_of_int yidx) vus) in
+    List.init nxp (fun xidx ->
+      let vx = V3.add vy (V3.smul (float_of_int xidx) vrs) in
+      {origin=vx; direction=V3.unit @@ V3.sub vx o}
+    )
   ) in
   List.to_seq rays

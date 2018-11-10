@@ -1,9 +1,10 @@
 (executables
- (names main)
- (modes (byte exe)
-        (best exe))
- (libraries tracing))
+  (names main)
+  (modes (byte exe)
+         (best exe))
+  (ocamlopt_flags (:standard -p))
+  (libraries tracing))
 
 (install
- (section bin)
- (files (main.bc as tracing)))
+  (section bin)
+  (files (main.bc as tracing)))

@@ -1,4 +1,5 @@
-(** Formatting functions for Gg/Vg **)
+(* formatters.ml *)
+(** Formatting functions for [gg]/[vg]. *)
 
 open Tracing_types
 
