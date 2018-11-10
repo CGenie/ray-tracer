@@ -31,12 +31,33 @@ type w_object = {
   color: color;
   phong: phong_t
 }
-type eye = {
-  origin: p3
-}
+type eye = p3
 type image_plane = {
   ll: p3;  (* lower-left corner of rectangle *)
   ur: p3   (* upper-right corner of rectangle *)
+}
+(** camera type.
+    Parameters are:
+    eye position,
+    direction of look (a normal vector),
+    image plane distance from eye,
+    image plane width,
+    image plane height.
+
+width x height
+ ------^------ image plane
+       |
+      d|
+       |
+      eye
+
+ **)
+type camera = {
+  eye: eye;
+  direction: v3;
+  distance: float;
+  width: float;
+  height: float
 }
 type world = {
   objects: w_object list;

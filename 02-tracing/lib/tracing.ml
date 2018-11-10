@@ -7,28 +7,6 @@ open Algorithms
 open Tracing_types
 open Initials
 
-(*
-a x^2 + b x + c = 0  (a > 0)
-x^2 + b/a x + c/a = 0
-(x + b/2a)^2 + c/a - b^2/4a^2 = 0
-b^2/4a^2 - c/a >= 0
-Delta = (b^2 - 4ac) >= 0
-x = - b/2a + sqrt{(b^2 - 4ac)}/2a
-x = (+/- sqrt{Delta} - b)/2a
-*)
-
-(*
-  Intersection with ball:
-  ray is: ro + t*rd  (t >= 0)
-  ball is: (v - bo)^2 = br^2
-  (ro + t*rd - bo)^2 = br^2
-  ((ro - bo) + t*rd)^2 = br^2
-  |ro - bo|^2 + 2 t (ro - bo, rd) + t^2 |rd|^2 = br^2
-  |rd|^2 t2 + 2 (ro - bo, rd) t + |ro - bo|^2 - br^2 = 0
-  Delta = 4 (ro - bo, rd)^2 - 4 |rd|^2 (|ro - bo|^2 - br^2) >= 0
-  t = (sqrt{Delta} - 2 (ro - bo, rd))/2|rd|^2
-*)
-
 let rec intersect ({origin=ro; direction=rd} as r:ray) wo =
   (* TODO: ray direction should be normalized, add an assertion *)
   let rd2 = norm2 rd in
@@ -48,6 +26,45 @@ let rec intersect ({origin=ro; direction=rd} as r:ray) wo =
     let inv_ray = {origin=Gg.P3.tr inv_m ro; direction=Gg.V3.tr inv_m rd} in
     let intersections = intersect inv_ray {wo with shape=s} in
     List.map (fun i -> {i with w_object=wo}) intersections
+
+let image_plane_of_camera c =
+  let mid_p = c.eye + (smul c.distance c.direction) in  (* middle point of image plane *)
+  (* find 2 vetors perpendicular to c.direction: one going "right", one going "up" *)
+  let x, y, z = to_tuple c.direction in
+  let vec_r = unit @@ if z < 0.0 then
+    Gg.V3.v (-.z) 0.0 x
+  else
+    Gg.V3.v z 0.0 (-.x)
+  in
+  let vec_u = unit @@ if z < 0.0 then
+    Gg.V3.v 0.0 (-.z) y
+  else
+    Gg.V3.v 0.0 z (-.y)
+  in
+  (* lower-left point of image plane *)
+  let ll = mid_p - (smul (0.5 *. c.width) vec_r) - (smul (0.5 *. c.height) vec_u) in
+  (* upper-right point of image plane *)
+  let ur = mid_p + (smul (0.5 *. c.width) vec_r) + (smul (0.5 *. c.height) vec_u) in
+  {ll=ll; ur=ur}
+
+(* [image_plane_of_camera] tests *)
+let%test_module _ = (module struct
+  let%test _ =
+    let c: camera = {
+      eye=Gg.P3.v 0.0 0.0 (-2.0);
+      direction=Gg.V3.unit @@ Gg.V3.v 0.0 0.0 1.0;
+      distance=1.0;
+      width=4.0;
+      height=4.0;
+    } in
+    let ip = image_plane_of_camera c in
+    let expected_ll = Gg.P3.v (-2.) (-2.) (-1.) in
+    let expected_ur = Gg.P3.v 2. 2. (-1.) in
+    let err = (Gg.V3.norm (ip.ll - expected_ll)) +. (Gg.V3.norm (ip.ur - expected_ur)) in
+    Printf.printf "ll: %s; expected_ll: %s\n" (format_p3 ip.ll) (format_p3 expected_ll);
+    Printf.printf "ur: %s; expected_ur: %s\n" (format_p3 ip.ur) (format_p3 expected_ur);
+    err < 0.001
+end)
 
 (** Phong model coloring function **)
 let phong_color (material_color: Gg.color) (material_phong: phong_t) (light_: lighting) (point: Gg.p3) (eyev: Gg.v3) (normalv: Gg.v3) =
@@ -72,7 +89,7 @@ let phong_color (material_color: Gg.color) (material_phong: phong_t) (light_: li
       )
     ) 1.0
 
-(* phong_color tests *)
+(* [phong_color] tests *)
 let%test_module _ = (module struct
   let m_phong: phong_t = {
     ambient=0.1;
@@ -126,8 +143,6 @@ let%test_module _ = (module struct
     let ph_light = phong_color m_color m_phong light position eyev normalv in
     let expected = Gg.Color.v 0.1 0.1 0.1 1.0 in
     let err = Gg.V4.norm @@ Gg.V4.sub ph_light expected in
-    Printf.printf "ph_light: %s\n" (format_v4 ph_light);
-    Printf.printf "expected: %s\n" (format_v4 expected);
     err < 0.00001
 end)
 
@@ -155,7 +170,7 @@ let colorize_point (w: world) (r: ray) =
   {point=r.origin; color=Gg.Color.with_a c 1.0}
 
 let colorize (ip: image_plane) (w: world) (e: eye) =
-  let rays = get_rays e.origin ip x_initial_rays y_initial_rays in
+  let rays = get_rays e ip x_initial_rays y_initial_rays in
   (* Printf.printf "num rays: %d\n" (List.length rays); *)
   (* List.iter (fun r -> Printf.printf "%s\n" (format_ray r)) rays; *)
   (* List.rev_map (colorize_point w) rays *)
@@ -165,10 +180,12 @@ let colorize (ip: image_plane) (w: world) (e: eye) =
 (* Draw sphere, paint it in a simple way *)
 (* This is "Putting it together" task at end of Chapter 5 *)
 let simple_scene () =
-  let w = initial_world
-  and ip = initial_image_plane
-  and e = initial_eye in
-  let pts = colorize ip w e in
+  let w = initial_world in
+  let c = initial_camera in
+  let ip = image_plane_of_camera c in
+  Printf.printf "Colorizing...\n";
+  (* let pts = colorize_parallel ip w e in *)
+  let pts = colorize ip w c.eye in
   Printf.printf "Colorize done\n";
   Drawing.render_points pts ~output:"./output/simple-scene.png"
 

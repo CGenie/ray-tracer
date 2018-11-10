@@ -11,12 +11,12 @@ let default_phong: phong_t = {
   specular=0.9;
   shininess=200.0
 }
-let initial_eye: eye = {
-  origin=P3.v 0.0 0.0 (-2.0)
-}
-let initial_image_plane: image_plane = {
-  ll=P3.v (-2.) (-2.) (-1.);
-  ur=P3.v 2. 2. (-1.)
+let initial_camera: camera = {
+  eye=P3.v 0.0 0.0 (-3.0);
+  direction=Gg.V3.unit @@ V3.v 0.3 0.0 1.0;
+  distance=1.0;
+  width=4.0;
+  height=4.0
 }
 let initial_ball: shape = Ball {
   origin=P3.v 0.0 0.0 1.0;
@@ -26,14 +26,12 @@ let ball_tr = Gg.M4.scale3 @@ V3.v 2.0 1.0 1.0
 let initial_w_affine_ball: w_object = {
   shape=Affine{m=ball_tr; inv_m=Gg.M4.inv ball_tr; shape=initial_ball};
   phong=default_phong;
-  (* color=Color.red *)
   color=Color.v 1.0 0.2 1.0 1.0
 }
 let ball_tr2 = Gg.M4.move3 @@ V3.v 0.0 1.5 0.0
 let initial_w_ball: w_object = {
   shape=Affine{m=ball_tr2; inv_m=Gg.M4.inv ball_tr2; shape=initial_ball};
   phong=default_phong;
-  (* color=Color.red *)
   color=Color.v 1.0 0.2 0.5 1.0
 }
 let first_light: lighting = PointLight {position=P3.v (-10.0) 10.0 (-10.0); intensity=Color.white}

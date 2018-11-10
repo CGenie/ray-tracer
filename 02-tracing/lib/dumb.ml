@@ -1,3 +1,6 @@
+(* For debugging a bug in Vg
+   https://github.com/dbuenzli/vg/issues/19 *)
+
 open Gg
 open Vg
 

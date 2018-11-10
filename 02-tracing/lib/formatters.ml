@@ -1,3 +1,5 @@
+(** Formatting functions for Gg/Vg **)
+
 open Tracing_types
 
 let format_v2 v = Printf.sprintf "(%f, %f)" (Gg.V2.x v) (Gg.V2.y v)
