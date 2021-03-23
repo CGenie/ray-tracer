@@ -5,7 +5,7 @@ Solutions to the Pragmatic Bookshelf book
 
 ```
 opam switch create ray-tracer 4.07.1
-opam install gg vg cairo2 utop batteries ppx_inline_test
+opam install gg vg cairo2 utop batteries
 ```
 
 ## 1. World Projectile
@@ -23,6 +23,8 @@ This is a real ray tracer, with Phong modeling (chapters 3-5 of the book).
 cd 02-tracing
 opam install parany ppx_inline_test
 dune build
+mkdir output
+dune exec tracing
 ```
 
 ## Documentation
