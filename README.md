@@ -5,7 +5,7 @@ Solutions to the Pragmatic Bookshelf book
 
 ```
 opam switch create ray-tracer 4.07.1
-opam install gg vg cairo2 utop batteries
+opam install gg vg cairo2 utop batteries ppx_inline_test
 ```
 
 ## 1. World Projectile
